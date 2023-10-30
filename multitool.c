@@ -11,7 +11,7 @@ int main()
     #ifdef _WIN32
     printf("\n\n\t\t\tSistema operativo Windows detectado. O programa será iniciado.");
     sleep(2);
-    system("cls");
+    sprintf("\033[2J\033[H");
     #else
     printf("\n\t\t\tSistema operativo Windows não detectado.");
     printf("\n\t\t\tA parar o programa");
@@ -39,7 +39,6 @@ int main()
         }
         printf("\r");
 
-        system("cls");
     }
     // buscar username windows
     char username[256];
@@ -61,7 +60,7 @@ int main()
 
     printf("\n\n\t\t\tAguarde enquanto carregamos as opções :)");
     sleep(2);
-    system("cls");
+    printf("\033[2J\033[H");
 
     if (GetUserName(username, &usernameSize)) 
     {
@@ -116,7 +115,7 @@ void menu_principal()
     default:
         printf("Selecione uma opção válida!");
         sleep(3);
-        system("cls");
+        printf("\033[2J\033[H");
     break;
     }
 
@@ -126,7 +125,7 @@ void menu_principal()
 
 void ferramentas_limpeza()
 {
-    system("cls");
+    printf("\033[2J\033[H");
     
     int op_ferramentas_limpeza;
 
@@ -141,14 +140,14 @@ void ferramentas_limpeza()
     switch (op_ferramentas_limpeza)
     {
     case 0:
-        system("cls");
+        printf("\033[2J\033[H");
         menu_principal();
     break;
     
     default:
         printf("Selecione uma opção válida!");
         sleep(3);
-        system("cls");
+        printf("\033[2J\033[H");
     break;
     }
 
@@ -156,7 +155,7 @@ void ferramentas_limpeza()
 
 void ferramentas_otimizacao()
 {
-    system("cls");
+    printf("\033[2J\033[H");
 
     int op_ferramentas_otimizacao;
     
@@ -170,14 +169,14 @@ void ferramentas_otimizacao()
     switch (op_ferramentas_otimizacao)
     {
     case 0:
-        system("cls");
+        printf("\033[2J\033[H");
         menu_principal();
     break;
     
     default:
         printf("Selecione uma opção válida!");
         sleep(3);
-        system("cls");
+        printf("\033[2J\033[H");
     break;
     }
 }
@@ -195,14 +194,14 @@ void info_sistema()
     switch (op_info_sistema)
     {
     case 0:
-        system("cls");
+        printf("\033[2J\033[H");
         
     break;
     
     default:
         printf("Selecione uma opção válida!");
         sleep(3);
-        system("cls");
+        printf("\033[2J\033[H");
     break;
     }
 }

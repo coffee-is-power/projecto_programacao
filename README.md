@@ -1,4 +1,9 @@
 # projecto_programacao
 
-projecto multitool para windows
-ferramentas de limpeza, otimizaÃ§Ã£o, verificar info sistema, verificar ip_configs, etc
+# Sistema multitool para windows, ferramentas de limpeza, optimização, etc.
+
+# Sistema de verificação de versão do windows, configurações de IP, Hardware e Software, etc
+
+apenas para windows
+
+contém verificações a nível de Sistema Operativo
