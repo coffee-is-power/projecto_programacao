@@ -14,8 +14,10 @@ int main()
     setlocale (LC_ALL, "Portuguese");
 
     #ifdef _WIN32
-    printf("\n\n\t\t\tSistema operativo Windows detectado. O programa será iniciado.");
-    Sleep(2);
+    clear_screen();
+    move_cursor_to(6, 30);
+    printf("Sistema operativo Windows detectado. O programa será iniciado.");
+    Sleep(2000);
     #else
     printf("\n\t\t\tSistema operativo Windows não detectado.");
     printf("\n\t\t\tA parar o programa");
@@ -27,6 +29,7 @@ int main()
     printf(".")
     return 1;  // Encerre o programa se nÃƒÂ£o for Windows
     #endif  
+    clear_screen();
     // Tela de loading
     for (int i = 0; i < 10; i++)
     {
@@ -141,6 +144,26 @@ void ferramentas_limpeza()
         printf("\033[2J\033[H");
         menu_principal();
     break;
+    
+    case 1:
+        printf("Insira o letra da unidade de disco que pretende limpar: ");
+        char letra_unidade_disco = getchar();
+        char comando[] = "cleanmgr /d  :";
+        comando[12] = letra_unidade_disco;
+        scanf("%c", &letra_unidade_disco);
+        clear_screen();
+        system(comando);
+        clear_screen();
+        printf("\n\t\t\tLimpeza do disco");
+        printf("\n\t\t\tAguarde enquanto limpamos o disco");
+        sleep(2);
+        printf(".");
+        sleep(2);
+        printf(".");
+        sleep(2);
+        printf(".");
+        sleep(2);
+        printf(".");
     
     default:
         printf("Selecione uma opção válida!");
