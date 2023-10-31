@@ -11,7 +11,7 @@ int main()
     #ifdef _WIN32
     printf("\n\n\t\t\tSistema operativo Windows detectado. O programa será iniciado.");
     sleep(2);
-    sprintf("\033[2J\033[H");
+    printf("\033[2J\033[1;1H");
     #else
     printf("\n\t\t\tSistema operativo Windows não detectado.");
     printf("\n\t\t\tA parar o programa");
@@ -30,14 +30,10 @@ int main()
         for (int j = 0; j < 40; j++)
         {
             printf(".");
-            sleep(10);
+            Sleep(10);
         }
         printf("\r");
-        for (int j = 0; j < 60; j++)
-        {
-            printf(" "); // apagar linha anterior
-        }
-        printf("\r");
+        printf("\033[2J\033[1;1H");
 
     }
     // buscar username windows
@@ -60,7 +56,7 @@ int main()
 
     printf("\n\n\t\t\tAguarde enquanto carregamos as opções :)");
     sleep(2);
-    printf("\033[2J\033[H");
+    system("cls");
 
     if (GetUserName(username, &usernameSize)) 
     {
