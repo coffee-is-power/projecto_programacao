@@ -69,6 +69,7 @@ int main()
     //SetWindowState(FLAG_FULLSCREEN_MODE);
     Texture image = LoadTexture("../assets/logo.png");
     SetTextureFilter(image, TEXTURE_FILTER_TRILINEAR);
+    InitAudioDevice();
     Sound menu_hover_sound = LoadSound("../assets/menu_hover_sound.wav");
     State state = LOADING;
     double start_time = GetTime();
@@ -82,7 +83,7 @@ int main()
         if (state == LOADING)
             render_loading_screen(&image);
         if (state == MENU)
-            render_menu_screen(&menu_hover_sound);
+            render_menu_screen(menu_hover_sound);
 
         EndDrawing();
     }
