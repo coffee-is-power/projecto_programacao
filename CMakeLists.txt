@@ -1,9 +1,11 @@
 cmake_minimum_required(VERSION 3.11) # FetchContent is available in 3.11+
-project(multitool)
+project(multitool C)
 
 # Generate compile_commands.json
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
-
+set(CUSTOMIZE_BUILD ON)
+set(USE_WAYLAND ON)
+set(WITH_PIC ON)
 # Dependencies
 set(RAYLIB_VERSION 4.5.0)
 find_package(raylib ${RAYLIB_VERSION} QUIET) # QUIET or REQUIRED
@@ -23,7 +25,9 @@ if (NOT raylib_FOUND) # If there's none, fetch and build raylib
   endif()
 endif()
 
-file(COPY assets DESTINATION ${CMAKE_BINARY_DIR})
+add_custom_target(copy_assets
+    COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_LIST_DIR}/assets ${CMAKE_CURRENT_BINARY_DIR}/assets
+)
 # Our Project
 
 add_executable(${PROJECT_NAME} 
@@ -31,8 +35,10 @@ add_executable(${PROJECT_NAME}
   screens/menu_screen.c
   screens/menu_screen.h
 )
+add_dependencies(${PROJECT_NAME} copy_assets)
+
 #set(raylib_VERBOSE 1)
-target_link_libraries(${PROJECT_NAME} raylib m)
+target_link_libraries(${PROJECT_NAME} raylib)
 
 # Web Configurations
 if (${PLATFORM} STREQUAL "Web")

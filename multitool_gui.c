@@ -63,18 +63,17 @@ int main()
     {
         printf("[INFO] Algumas funcionalidades não funcionam em outros sistemas que não sejam windows e iram fazer um dry run inves de realmente executar a ação.\n");
     }
+    InitAudioDevice();
     SetConfigFlags(FLAG_MSAA_4X_HINT | FLAG_WINDOW_RESIZABLE);
     SetTargetFPS(60);
     InitWindow(800, 600, "Multitool do Windows");
     //SetWindowState(FLAG_FULLSCREEN_MODE);
-    Texture image = LoadTexture("../assets/logo.png");
-    SetTextureFilter(image, TEXTURE_FILTER_TRILINEAR);
-    InitAudioDevice();
-    Sound menu_hover_sound = LoadSound("../assets/menu_hover_sound.wav");
+    Texture image = LoadTexture("assets/logo.png");
     State state = LOADING;
     double start_time = GetTime();
     while (!WindowShouldClose())
     {
+        update_menu_screen();
         if ((GetTime() - start_time) > 3.0f)
             state = MENU;
         BeginDrawing();
@@ -83,7 +82,7 @@ int main()
         if (state == LOADING)
             render_loading_screen(&image);
         if (state == MENU)
-            render_menu_screen(menu_hover_sound);
+            render_menu_screen();
 
         EndDrawing();
     }
