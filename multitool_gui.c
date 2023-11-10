@@ -7,14 +7,7 @@
 #else
 #define DRY_RUN false
 #endif
-int calculate_centered_text_x(Texture *image)
-{
-    return (GetScreenWidth() / 2) - (image->width / 2);
-}
-int calculate_centered_image_y(Texture *image)
-{
-    return (GetScreenHeight() / 2) - (image->height / 2);
-}
+
 int calculate_centered_image_x(Texture *image)
 {
     return (GetScreenWidth() / 2) - (image->width / 2);
@@ -23,6 +16,7 @@ int calculate_centered_image_y(Texture *image)
 {
     return (GetScreenHeight() / 2) - (image->height / 2);
 }
+
 void render_loading_screen(Texture *logo_image)
 {
     static float rotation = 0.0f;
@@ -31,7 +25,7 @@ void render_loading_screen(Texture *logo_image)
                 calculate_centered_image_x(logo_image),
                 calculate_centered_image_y(logo_image),
                 ColorAlpha(WHITE, (sinf(GetTime()) / 2) + 0.5f));
-    angle += 0.05f; // Velocidade de "carregamento"
+    angle += 360.0f * GetFrameTime(); // Velocidade de "carregamento"
 
     // Draw spinner track
     DrawRing(
@@ -69,23 +63,26 @@ int main()
     {
         printf("[INFO] Algumas funcionalidades não funcionam em outros sistemas que não sejam windows e iram fazer um dry run inves de realmente executar a ação.\n");
     }
-    SetConfigFlags(FLAG_MSAA_4X_HINT);
-    InitWindow(0, 0, "Multitool do Windows");
-    SetWindowState(FLAG_FULLSCREEN_MODE);
+    SetConfigFlags(FLAG_MSAA_4X_HINT | FLAG_WINDOW_RESIZABLE);
+    SetTargetFPS(60);
+    InitWindow(800, 600, "Multitool do Windows");
+    //SetWindowState(FLAG_FULLSCREEN_MODE);
     Texture image = LoadTexture("../assets/logo.png");
     SetTextureFilter(image, TEXTURE_FILTER_TRILINEAR);
+    Sound menu_hover_sound = LoadSound("../assets/menu_hover_sound.wav");
     State state = LOADING;
     double start_time = GetTime();
     while (!WindowShouldClose())
     {
-        if (start_time - GetTime() > 2.0f)
+        if ((GetTime() - start_time) > 3.0f)
             state = MENU;
         BeginDrawing();
         ClearBackground(BLACK);
+        DrawFPS(5 , 5);
         if (state == LOADING)
             render_loading_screen(&image);
         if (state == MENU)
-            render_menu_screen();
+            render_menu_screen(&menu_hover_sound);
 
         EndDrawing();
     }
