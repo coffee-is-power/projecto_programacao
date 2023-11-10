@@ -18,8 +18,8 @@ const char *menu_items[] = {
 #define menu_items_count sizeof(menu_items) / sizeof(menu_items[0])
 const int item_padding = 2;
 bool mouse_hover_on_last_frame[menu_items_count] = {0};
-static Sound menu_hover_sound = {0};
-
+Sound menu_hover_sound = {0};
+bool sound_is_loaded = false;
 // Função para calcular o bounding box
 Rectangle calculate_button_bounding_box(int index)
 {
@@ -34,6 +34,11 @@ Rectangle calculate_button_bounding_box(int index)
 // Função de atualização
 void update_menu_screen()
 {
+    if (!sound_is_loaded)
+    {
+        menu_hover_sound = LoadSound("assets/menu_hover_sound.wav");
+        sound_is_loaded = true;
+    }
     // Atualizar lógica de interação do mouse e sons, se necessário
     for (int i = 0; i < menu_items_count; i++)
     {
@@ -46,7 +51,6 @@ void update_menu_screen()
                 SetMasterVolume(1.0f);
                 SetSoundVolume(menu_hover_sound, 1.0f);
                 PlaySound(menu_hover_sound);
-                printf("mouse_hover[%d]: %s\n", i, mouse_hover_on_last_frame[i] ? "true" : "false");
             }
             mouse_hover_on_last_frame[i] = true;
         }
