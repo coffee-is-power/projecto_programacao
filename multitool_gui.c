@@ -1,15 +1,13 @@
 #include <raylib.h>
 #include <math.h>
-#include <windows.h>
-bool is_windows() {
-    #ifdef _WIN32
-        return true;
-    #else
-        return false;
-    #endif
-}
-
-int calculate_centered_text_x()
+#include <stdio.h>
+#include "screens/menu_screen.h"
+#ifdef _WIN32
+#define DRY_RUN true
+#else
+#define DRY_RUN false
+#endif
+int calculate_centered_text_x(Texture *image)
 {
     return (GetScreenWidth() / 2) - (image->width / 2);
 }
@@ -42,7 +40,7 @@ void render_loading_screen(Texture *logo_image)
         // Inner radius and outer radius of the ring
         10, 15,
         // Start angle and end angle of the ring
-        0 + *angle, 300 + *angle,
+        0 + angle, 300 + angle,
         // Segments
         100,
         // Color
@@ -54,37 +52,22 @@ void render_loading_screen(Texture *logo_image)
         // Inner radius and outer radius of the ring
         10, 15,
         // Start angle and end angle of the ring
-        300 + *angle, 360 + *angle,
+        300 + angle, 360 + angle,
         // Segments
         100,
         // Color
         BLACK);
 }
-typedef enum {
+typedef enum
+{
     LOADING,
     MENU,
 } State;
-void render_menu_screen() {
-    DrawRectangle(posx, posy, width, height, DARKBLUE);
-    DrawText("Ferramentas de limpeza", 0, 0, 20, LIGHTGRAY);
-
-    DrawRectangle(posX, posY, width, height, DARKBLUE);
-    DrawText("Ferramentas de optimização", 0, 0, 20, LIGHTGRAY);
-
-    DrawRectangle(posX, posY, width, height, DARKBLUE);
-    DrawText("Ver Informações de sistema", 0, 0, 20, LIGHTGRAY);
-
-    DrawRectangle(posX, posY, width, height, DARKBLUE);
-    DrawText("Ver configurações de ip", 0, 0, 20, LIGHTGRAY);
-
-    DrawRectangle(posX, posY, width, height, DARKBLUE);
-    DrawText("Sair", 0, 0, 20, LIGHTGRAY);
-}
 int main()
 {
-    if(!is_windows()) {
-        printf("Este programa só funciona no Windows!\n");
-        return 1;
+    if (DRY_RUN)
+    {
+        printf("[INFO] Algumas funcionalidades nÃ£o funcionam em outros sistemas que nÃ£o sejam windows e iram fazer um dry run inves de realmente executar a aÃ§Ã£o.\n");
     }
     SetConfigFlags(FLAG_MSAA_4X_HINT);
     InitWindow(0, 0, "Multitool do Windows");
@@ -95,13 +78,13 @@ int main()
     double start_time = GetTime();
     while (!WindowShouldClose())
     {
-        if(start_time - GetTime() > 2.0f)
+        if (start_time - GetTime() > 2.0f)
             state = MENU;
         BeginDrawing();
         ClearBackground(BLACK);
-        if(state == LOADING)
+        if (state == LOADING)
             render_loading_screen(&image);
-        if(state == MENU)
+        if (state == MENU)
             render_menu_screen();
 
         EndDrawing();

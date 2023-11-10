@@ -1,8 +1,16 @@
 # projecto_programacao
 
-- Sistema multitool para windows, ferramentas de limpeza, optimizaÁ„o, etc.
-- Sistema de verificaÁ„o de vers„o do windows, configuraÁıes de IP, Hardware e Software, etc
+- Sistema multitool para windows, ferramentas de limpeza, optimiza√ß√£o, etc.
+- Sistema de verifica√ß√£o de vers√£o do windows, configura√ß√µes de IP, Hardware e Software, etc
 - Apenas para windows
-- ContÈm verificaÁıes a nÌvel de Sistema Operativo
-- Precisa previlÈgios Admin
-- N„o vou explicar como funciona porque È b·sico
+- Cont√©m verifica√ß√µes a n√≠vel de Sistema Operativo
+- Precisa previl√©gios Admin
+
+# Ferramentas
+
+- Ferramentas de limpeza:
+    1. [ ] Limpeza do disco
+    2. [ ] Limpeza ficheiros tempor√°rios
+    3. [ ] Limpeza da RAM
+    4. [ ] Limpeza arquivos desnecess√°rios
+- Mostrar informa√ß√£o do sistema (tipo neofetch)

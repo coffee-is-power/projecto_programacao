@@ -26,7 +26,11 @@ endif()
 file(COPY assets DESTINATION ${CMAKE_BINARY_DIR})
 # Our Project
 
-add_executable(${PROJECT_NAME} multitool_gui.c)
+add_executable(${PROJECT_NAME} 
+  multitool_gui.c
+  screens/menu_screen.c
+  screens/menu_screen.h
+)
 #set(raylib_VERBOSE 1)
 target_link_libraries(${PROJECT_NAME} raylib m)
 
